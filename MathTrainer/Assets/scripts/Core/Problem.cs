@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
 
 //ThreeIce:在Weakness那边反射创建各子类实例吧
 /// <summary>

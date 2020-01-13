@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System;
 
 /// <summary>
 /// 薄弱点系统，同时也是题目选择系统
@@ -14,7 +15,7 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     public static WeaknessManager main;
     #endregion
-    public ProblemGenerator[] generators;
+    public ProblemGenerator[] Generators;
     /// <summary>
     /// 创建事件
     /// </summary>
@@ -29,8 +30,21 @@ public class WeaknessManager : MonoBehaviour
         //获得所有的ProblemGenerator
         GetGenerators();
     }
+    /// <summary>
+    /// 通过反射获取所有的ProblemGenerator并生成一个实例
+    /// </summary>
     void GetGenerators(){
         Assembly temp = Assembly.GetExecutingAssembly();
+        var types = temp.GetTypes();
+        var generatortype = typeof(ProblemGenerator);
+        List<ProblemGenerator> generators = new List<ProblemGenerator>();
+        for(int i = 0;i<types.Length;i++){
+            //检测搜索到的类型是否是继承自ProblemGenerator的（并且该类型不能为ProblemGenerator本身）
+            if(generatortype.IsAssignableFrom(types[i]) && !types[i].Equals(generatortype)){
+                generators.Add((ProblemGenerator)Activator.CreateInstance(types[i]));
+            }
+        }
+        Generators = generators.ToArray();
     }
     /// <summary>
     /// 删除事件
