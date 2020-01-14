@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
 
-//ThreeIce:在Weakness那边反射创建各子类实例吧
 /// <summary>
 /// 题目生成器的基类
 /// </summary>
