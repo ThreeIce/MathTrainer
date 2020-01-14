@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-//*****表示未完成
+//*****表示未完成 
 //ThreeIce：UI那边获取题目后与输入交互，通过IsCorrect检测是否正确，如果正确直接调用Finish即可，不需要回来调用别的函数，一切功能由钩子处理
 public class Manager : MonoBehaviour
 {
