@@ -18,6 +18,11 @@ public abstract class ProblemGenerator
     /// </summary>
     public abstract string PointType{ get;}
     /// <summary>
+    /// 最佳完成题目的时间
+    /// </summary>
+    /// <value></value>
+    public abstract int BestFinishTime{get;}
+    /// <summary>
     /// 生成题目
     /// </summary>
     /// <returns>题目</returns>
