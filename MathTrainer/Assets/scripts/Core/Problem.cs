@@ -43,5 +43,27 @@ public abstract class Problem : CurrentTask
     /// </summary>
     /// <param name="Answer">用户输入的答案</param>
     /// <returns>是否正确（废话）</returns>
-    public abstract bool IsCorrect(params string[] Answer);
+    public abstract bool IsCorrect(params string[] Answers);
+    /// <summary>
+    /// 题目的答案
+    /// </summary>
+    public abstract string[] Answers { get; }
+    /// <summary>
+    /// 输入答案
+    /// </summary>
+    public virtual bool InputAnswer(params string[] Answers){
+        if(IsCorrect(Answers)){
+            ProblemFinish(true);
+            return true;
+        }else{
+            ProblemFinish(false);
+            return false;
+        }
+    }
+    /// <summary>
+    /// Problem调用Task里Finish的参数转换接口
+    /// </summary>
+    public void ProblemFinish(bool IsRight){
+        base.Finish(IsRight);
+    }
 }
