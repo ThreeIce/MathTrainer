@@ -20,8 +20,8 @@ public class WeaknessManager : MonoBehaviour
     /// <summary>
     /// 知识点列表，bool表示是否加入题目生成考虑范围
     /// </summary>
-    public Dictionary<PointType,bool> EnablePoints{get;private set;}
-    public Dictionary<PointType,PointFinishMessage> PointsFinishMessage;
+    public Dictionary<string,bool> EnablePoints{get;private set;}
+    public Dictionary<string,PointFinishMessage> PointsFinishMessage;
     #endregion
     /// <summary>
     /// 创建事件
@@ -82,14 +82,14 @@ public class WeaknessManager : MonoBehaviour
     /// 将一个知识点纳入生成范围
     /// </summary>
     /// <param name="pointType"></param>
-    public virtual void EnablePoint(PointType pointType){
+    public virtual void EnablePoint(string pointType){
 
     }
     /// <summary>
     /// 将一个知识点移出生成范围
     /// </summary>
     /// <param name="pointType"></param>
-    public virtual void DisablePoint(PointType pointType){
+    public virtual void DisablePoint(string pointType){
 
     }
 }
