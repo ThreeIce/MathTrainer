@@ -21,6 +21,7 @@ public class WeaknessManager : MonoBehaviour
     /// 知识点列表，bool表示是否加入题目生成考虑范围
     /// </summary>
     public Dictionary<PointType,bool> EnablePoints{get;private set;}
+    public Dictionary<PointType,PointFinishMessage> PointsFinishMessage;
     #endregion
     /// <summary>
     /// 创建事件

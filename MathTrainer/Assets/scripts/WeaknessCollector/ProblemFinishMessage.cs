@@ -2,6 +2,10 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// 知识点掌握信息
+/// </summary>
+[Serializable]
 public class PointFinishMessage
 {
     /// <summary>
@@ -9,33 +13,21 @@ public class PointFinishMessage
     /// </summary>
     public PointType ProblemPointType;
     /// <summary>
-    /// 知识点的掌握程度
+    /// 知识点的掌握程度，范围0~1
     /// </summary>
     /// <value></value>
     public float LearnLevel{get;}
+    /// <summary>
+    /// 所属题目的完成情况
+    /// </summary>
     public List<ProblemFinishMessage> Records;
 }
+/// <summary>
+/// 题目完成信息
+/// </summary>
+[Serializable]
 public class ProblemFinishMessage{
     public string ProblemTypeName;
     public float FinishTime;
     public float BestFinishTime;
-}
-/// <summary>
-/// 知识点类型
-/// </summary>
-public enum PointType{
-
-}
-/// <summary>
-/// 知识点的扩展类
-/// </summary>
-public static class PointTypeExtention{
-    /// <summary>
-    /// 将知识点enum转换成对应的知识点名称
-    /// </summary>
-    public static string GetName(this PointType type){
-        switch(type){
-
-        }
-    }
 }
