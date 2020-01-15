@@ -16,12 +16,12 @@ public abstract class ProblemGenerator
     /// <summary>
     /// 题目所属知识点名
     /// </summary>
-    public abstract string PointType{ get;}
+    public abstract string pointType{ get;}
     /// <summary>
     /// 最佳完成题目的时间
     /// </summary>
     /// <value></value>
-    public abstract int BestFinishTime{get;}
+    public abstract float BestFinishTime{get;}
     /// <summary>
     /// 生成题目
     /// </summary>
@@ -68,22 +68,13 @@ public abstract class Problem : CurrentTask
     }
 }
 
-/// <summary>
-/// 知识点类型
-/// </summary>
-public enum PointType{
 
-}
+
+
+
 /// <summary>
 /// 知识点的扩展类
 /// </summary>
-public static class PointTypeExtention{
-    /// <summary>
-    /// 将知识点enum转换成对应的知识点名称
-    /// </summary>
-    public static string GetName(this PointType type){
-        switch(type){
-
-        }
-    }
+public class PointType{
+    public static readonly string Arithmetic = "四则运算";
 }

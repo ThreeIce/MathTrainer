@@ -11,7 +11,7 @@ public class PointFinishMessage
     /// <summary>
     /// 知识点名
     /// </summary>
-    public PointType ProblemPointType;
+    public string ProblemPointType;
     /// <summary>
     /// 知识点的掌握程度，范围0~1
     /// </summary>
