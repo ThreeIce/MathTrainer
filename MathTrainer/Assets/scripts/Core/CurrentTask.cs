@@ -6,9 +6,15 @@ using UnityEngine;
 /// </summary>
 public abstract class CurrentTask
 {
-
-    public virtual void Finish(){
-        FinishListener(this);
+    /// <summary>
+    /// 任务完成时调用
+    /// </summary>
+    /// <param name="args">完成参数</param>
+    public virtual void Finish(params object[] args){
+        FinishListener(this,args);
     }
-    public Action<CurrentTask> FinishListener;
+    /// <summary>
+    /// 任务完成回调
+    /// </summary>
+    public Action<CurrentTask,object[]> FinishListener;
 }
