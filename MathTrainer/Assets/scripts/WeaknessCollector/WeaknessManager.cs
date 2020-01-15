@@ -15,7 +15,13 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     public static WeaknessManager main;
     #endregion
-    public ProblemGenerator[] Generators;
+    protected ProblemGenerator[] Generators;
+    #region 需要储存的成员
+    /// <summary>
+    /// 知识点列表，bool表示是否加入题目生成考虑范围
+    /// </summary>
+    public Dictionary<PointType,bool> EnablePoints{get;private set;}
+    #endregion
     /// <summary>
     /// 创建事件
     /// </summary>
@@ -71,5 +77,18 @@ public class WeaknessManager : MonoBehaviour
     protected ProblemGenerator ChooseProblemGenerator(){
         return null;
     }
+    /// <summary>
+    /// 将一个知识点纳入生成范围
+    /// </summary>
+    /// <param name="pointType"></param>
+    public virtual void EnablePoint(PointType pointType){
 
+    }
+    /// <summary>
+    /// 将一个知识点移出生成范围
+    /// </summary>
+    /// <param name="pointType"></param>
+    public virtual void DisablePoint(PointType pointType){
+
+    }
 }
