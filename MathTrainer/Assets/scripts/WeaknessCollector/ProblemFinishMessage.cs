@@ -11,7 +11,7 @@ public class PointFinishMessage
     /// <summary>
     /// 知识点名
     /// </summary>
-    public string ProblemPointType;
+    public string PointType;
     /// <summary>
     /// 知识点的掌握程度，范围0~1
     /// </summary>
@@ -38,7 +38,7 @@ public class PointFinishMessage
     /// <summary>
     /// 所属题目的完成情况
     /// </summary>
-    public List<ProblemFinishMessage> Records;
+    public List<ProblemFinishMessage> Records = new List<ProblemFinishMessage>();
 }
 /// <summary>
 /// 题目完成信息

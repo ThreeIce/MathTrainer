@@ -21,7 +21,7 @@ public class Arithmetic_AddGenrator : ProblemGenerator{
     /// 生成题目
     /// </summary>
     /// <returns>题目</returns>
-    public override Problem GenerateProblem(){
+    protected override Problem GenerateProblemInternal(){
         return null;
     }
 }

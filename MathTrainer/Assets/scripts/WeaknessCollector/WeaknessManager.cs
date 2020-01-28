@@ -44,11 +44,17 @@ public class WeaknessManager : MonoBehaviour
     /// 各知识点的各题目的完成信息
     /// </summary>
     public Dictionary<string,PointFinishMessage> PointsFinishMessage{get;private set;}
+    #endregion
+    
     /// <summary>
     /// 是否是首次使用该软件
     /// </summary>
     public bool IsFirstTime{get=>PointsFinishMessage == null;}
-    #endregion
+    /// <summary>
+    /// 当前正在回答的问题
+    /// </summary>
+    public Problem CurrentProblem{get;private set;}
+
     /// <summary>
     /// 创建事件
     /// </summary>
@@ -151,7 +157,10 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     /// <returns>问题对象</returns>
     public Problem GenerateProblem(){
-        return null;
+        var generator = ChooseProblemGenerator();
+        var problem = generator.GenerateProblem();
+        BeginAnswering(problem);
+        return problem;
     }
     /// <summary>
     /// 选择要生成的问题的类型
@@ -159,6 +168,36 @@ public class WeaknessManager : MonoBehaviour
     /// <returns></returns>
     protected ProblemGenerator ChooseProblemGenerator(){
         return null;
+    }
+    /// <summary>
+    /// 开始答题
+    /// </summary>
+    protected virtual void BeginAnswering(Problem p){
+        p.ProblemFinishListener += EndAnswering;
+    }
+    /// <summary>
+    /// 停止答题（题目完成回调）
+    /// </summary>
+    protected virtual void EndAnswering(Problem p,bool IsCorrect){
+        var problemGenerator = p.Generator;
+        var pointType = problemGenerator.pointType;
+        //保存题目完成记录
+        PointFinishMessage pointFinishMessage;
+        if(PointsFinishMessage.ContainsKey(pointType)){
+            pointFinishMessage = PointsFinishMessage[pointType];
+        }else{//如果这种题目从来没有答过（即知识点完成信息列表里头没有这个知识点）就加进去
+            pointFinishMessage = new PointFinishMessage(){
+                PointType = pointType
+            };
+            PointsFinishMessage.Add(pointType, pointFinishMessage);
+        }
+        ProblemFinishMessage problemFinishMessage = new ProblemFinishMessage(){
+            ProblemTypeName = problemGenerator.ProblemTypeName,
+            BestFinishTime = problemGenerator.BestFinishTime,
+            FinishTime = IsCorrect ? p.FinishTime : 0f
+        };
+        pointFinishMessage.Records.Add(problemFinishMessage);
+        SaveData();
     }
     /// <summary>
     /// 将一个知识点纳入生成范围
@@ -174,7 +213,6 @@ public class WeaknessManager : MonoBehaviour
     /// <summary>
     /// 将一个知识点移出生成范围
     /// </summary>
-    /// <param name="pointType"></param>
     public virtual void DisablePoint(string pointType){
         EnablePoints.Remove(pointType);
         SaveData();
