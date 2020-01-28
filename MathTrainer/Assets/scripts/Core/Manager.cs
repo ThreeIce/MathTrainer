@@ -63,9 +63,9 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// 当前任务完成时回调 *******
     /// </summary>
-    protected void CurrentTaskFinish(CurrentTask task,object[] args){
+    protected void CurrentTaskFinish(CurrentTask task){
         if(CurrentTask != task){
-            throw new CurrentTaskException("当前进行中人物与当前任务完成回调对应的任务不同！（可能是当前任务为null）");
+            throw new CurrentTaskException("当前进行中任务与当前任务完成回调对应的任务不同！（可能是当前任务为null）");
         }
         CurrentTask = null;
     }

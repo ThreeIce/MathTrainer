@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Unity.Collections;
 
@@ -64,8 +65,10 @@ public abstract class Problem : CurrentTask
     /// Problem调用Task里Finish的参数转换接口
     /// </summary>
     public void ProblemFinish(bool IsRight){
-        base.Finish(IsRight);
+        base.Finish();
+        ProblemFinishListener(this, IsRight);
     }
+    public Action<Problem,bool> ProblemFinishListener;
 }
 
 
@@ -73,7 +76,7 @@ public abstract class Problem : CurrentTask
 
 
 /// <summary>
-/// 知识点的扩展类
+/// 知识点类型名称统一列表
 /// </summary>
 public class PointType{
     public static readonly string Arithmetic = "四则运算";

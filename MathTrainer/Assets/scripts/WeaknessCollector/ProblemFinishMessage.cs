@@ -32,7 +32,7 @@ public class PointFinishMessage
                 }
                 result /= 50;
             }
-            return result > 1f ? 1f : result;
+            return result > 1f ? 1f : result; 
         }
     }
     /// <summary>

@@ -10,11 +10,11 @@ public abstract class CurrentTask
     /// 任务完成时调用
     /// </summary>
     /// <param name="args">完成参数</param>
-    public virtual void Finish(params object[] args){
-        FinishListener(this,args);
+    public virtual void Finish(){
+        FinishListener(this);
     }
     /// <summary>
     /// 任务完成回调
     /// </summary>
-    public Action<CurrentTask,object[]> FinishListener;
+    public Action<CurrentTask> FinishListener;
 }

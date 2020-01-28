@@ -165,13 +165,18 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     /// <param name="pointType"></param>
     public virtual void EnablePoint(string pointType){
-
+        if(EnablePoints.Contains(pointType)){
+            throw new ArgumentException("不要将两个相同的知识点纳入生成范围！！！");
+        }
+        EnablePoints.Add(pointType);
+        SaveData();
     }
     /// <summary>
     /// 将一个知识点移出生成范围
     /// </summary>
     /// <param name="pointType"></param>
     public virtual void DisablePoint(string pointType){
-
+        EnablePoints.Remove(pointType);
+        SaveData();
     }
 }
