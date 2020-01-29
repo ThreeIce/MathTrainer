@@ -45,16 +45,19 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     public Dictionary<string,PointFinishMessage> PointsFinishMessage{get;private set;}
     #endregion
-    
     /// <summary>
     /// 是否是首次使用该软件
     /// </summary>
     public bool IsFirstTime{get=>PointsFinishMessage == null;}
-    /// <summary>
-    /// 当前正在回答的问题
-    /// </summary>
-    public Problem CurrentProblem{get;private set;}
 
+    /// <summary>
+    /// 各知识点生成的概率比（实在不知道怎么取名了）
+    /// </summary>
+    protected Dictionary<string,float> PointsRandomPercentage;
+    /// <summary>
+    /// 概率比总和
+    /// </summary>
+    protected float TotalRandomRatio = 0f;
     /// <summary>
     /// 创建事件
     /// </summary>
@@ -73,7 +76,7 @@ public class WeaknessManager : MonoBehaviour
     /// <summary>
     /// 通过反射获取所有的ProblemGenerator并生成一个实例
     /// </summary>
-    void GetGenerators(){
+    private void GetGenerators(){
         Assembly temp = Assembly.GetExecutingAssembly();
         var types = temp.GetTypes();
         var generatortype = typeof(ProblemGenerator);
@@ -103,6 +106,53 @@ public class WeaknessManager : MonoBehaviour
         foreach(var point_and_generator in pointsandgenerators){
             PointsAndGenerators.Add(point_and_generator.Key,point_and_generator.Value.ToArray());
         }
+    }
+    /// <summary>
+    /// 知识点系统初始化
+    /// </summary>
+    protected void InitPointsRandomPercentage(){
+        PointsRandomPercentage = new Dictionary<string, float>();
+        for(int i = 0;i<EnablePoints.Count;i++){
+            AddPointRandomPercentage(EnablePoints[i]);
+        }
+    }
+    /// <summary>
+    /// 在知识点生成概率占比中加入新的知识点
+    /// </summary>
+    protected void AddPointRandomPercentage(string pointType){
+        float Percentage = CalculatePointPercentage(pointType);
+        TotalRandomRatio += Percentage;
+        PointsRandomPercentage.Add(pointType,Percentage);
+    }
+    /// <summary>
+    /// 设置单个知识点的生成概率占比
+    /// </summary>
+    protected void SetPointRandomPercentage(string pointType){
+        TotalRandomRatio -= PointsRandomPercentage[pointType];
+        PointsRandomPercentage[pointType] = CalculatePointPercentage(pointType);
+        TotalRandomRatio += PointsRandomPercentage[pointType];
+    }
+    /// <summary>
+    /// 从生成概率比池子里头移除一个知识点
+    /// </summary>
+    protected void RemovePointRandomPercentage(string pointType){
+        TotalRandomRatio -= PointsRandomPercentage[pointType];
+        PointsRandomPercentage.Remove(pointType);
+    }
+    /// <summary>
+    /// 计算单个知识点的生成概率占比应为多少
+    /// </summary>
+    protected float CalculatePointPercentage(string pointType){
+        //单个知识点的生成概率占比最高值暂定为5
+        const float MaxPercentage = 5f;
+        if(!PointsFinishMessage.ContainsKey(pointType)){
+            return MaxPercentage;
+        }
+        PointFinishMessage pointMsg = PointsFinishMessage[pointType];
+        if(pointMsg.LearnLevel < 1/ MaxPercentage){
+            return MaxPercentage;
+        }
+        return 1 / pointMsg.LearnLevel;
     }
     /// <summary>
     /// 从磁盘中读出数据
@@ -167,7 +217,24 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     protected ProblemGenerator ChooseProblemGenerator(){
-        return null;
+        string point = ChoosePoint();
+        var generators = PointsAndGenerators[point];
+        return generators[UnityEngine.Random.Range(0,generators.Length)];
+    }
+    /// <summary>
+    /// 选择要生成的题目所属的知识点
+    /// </summary>
+    /// <returns></returns>
+    protected string ChoosePoint(){
+        float RandomNum = UnityEngine.Random.Range(0f,TotalRandomRatio);
+        foreach(var point in PointsRandomPercentage){
+            //通过减完判断是否小于等于零来识别随机数落到了哪个知识点的生成范围
+            RandomNum -= point.Value;
+            if(RandomNum <= 0){
+                return point.Key;
+            }
+        }
+        throw new Exception("随机数落到范围区间外去了");
     }
     /// <summary>
     /// 开始答题
@@ -208,6 +275,7 @@ public class WeaknessManager : MonoBehaviour
             throw new ArgumentException("不要将两个相同的知识点纳入生成范围！！！");
         }
         EnablePoints.Add(pointType);
+        AddPointRandomPercentage(pointType);
         SaveData();
     }
     /// <summary>
@@ -215,6 +283,7 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     public virtual void DisablePoint(string pointType){
         EnablePoints.Remove(pointType);
+        RemovePointRandomPercentage(pointType);
         SaveData();
     }
 }

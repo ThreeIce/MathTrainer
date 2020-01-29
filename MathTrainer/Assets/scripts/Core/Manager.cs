@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-//*****表示未完成 
 //ThreeIce：UI那边获取题目后与输入交互，通过IsCorrect检测是否正确，如果正确直接调用Finish即可，不需要回来调用别的函数，一切功能由钩子处理
 public class Manager : MonoBehaviour
 {
@@ -61,7 +60,7 @@ public class Manager : MonoBehaviour
     }
 
     /// <summary>
-    /// 当前任务完成时回调 *******
+    /// 当前任务完成时回调
     /// </summary>
     protected void CurrentTaskFinish(CurrentTask task){
         if(CurrentTask != task){
