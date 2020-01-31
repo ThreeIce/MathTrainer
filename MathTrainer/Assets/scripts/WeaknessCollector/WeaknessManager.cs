@@ -30,7 +30,7 @@ public class WeaknessManager : MonoBehaviour
     public static void InitDataPath(){
         WeaknessDirectory = Application.persistentDataPath + "/WeaknessData";
         PointDataPath = WeaknessDirectory + "/PointData.dat";
-        EnablePointsDataPath  = WeaknessDirectory + "/EnablePoints";
+        EnablePointsDataPath  = WeaknessDirectory + "/EnablePoints.dat";
     }
     #endregion
     #region StaticMember
