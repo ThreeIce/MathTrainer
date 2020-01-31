@@ -12,8 +12,26 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class WeaknessManager : MonoBehaviour
 {
     #region StaticPath
-    public static readonly string PointDataPath = Application.persistentDataPath + "/WeaknessData/PointData.dat";
-    public static readonly string EnablePointsDataPath = Application.persistentDataPath + "/WeaknessData/EnablePoints";
+    /// <summary>
+    /// 薄弱知识点系统的目录
+    /// </summary>
+    public static string WeaknessDirectory;
+    /// <summary>
+    /// 知识点完成数据储存目录
+    /// </summary>
+    public static string PointDataPath;
+    /// <summary>
+    /// 纳入生成范围的知识点数据储存目录
+    /// </summary>
+    public static string EnablePointsDataPath;
+    /// <summary>
+    /// 初始化数据路径（unity不让在载入程序时初始化，只能放Awake
+    /// </summary>
+    public static void InitDataPath(){
+        WeaknessDirectory = Application.persistentDataPath + "/WeaknessData";
+        PointDataPath = WeaknessDirectory + "/PointData.dat";
+        EnablePointsDataPath  = WeaknessDirectory + "/EnablePoints";
+    }
     #endregion
     #region StaticMember
     /// <summary>
@@ -48,12 +66,12 @@ public class WeaknessManager : MonoBehaviour
     /// <summary>
     /// 是否是首次使用该软件
     /// </summary>
-    public bool IsFirstTime{get=>PointsFinishMessage == null;}
+    public bool IsFirstTime{get=>EnablePoints.Count == 0;}
 
     /// <summary>
     /// 各知识点生成的概率比（实在不知道怎么取名了）
     /// </summary>
-    protected Dictionary<string,float> PointsRandomPercentage;
+    protected Dictionary<string,float> PointsRandomPercentage = new Dictionary<string,float>();
     /// <summary>
     /// 概率比总和
     /// </summary>
@@ -63,6 +81,7 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        InitDataPath();
         //如果不存在Manager实例，将main设为当前Manager，如果存在，报错
         if(main == null){
             main = this;
@@ -71,7 +90,10 @@ public class WeaknessManager : MonoBehaviour
         }
         //获得所有的ProblemGenerator
         GetGenerators();
+        //读取数据
         ReadData();
+        //初始化概率池
+        InitPointsRandomPercentage();
     }
     /// <summary>
     /// 通过反射获取所有的ProblemGenerator并生成一个实例
@@ -103,6 +125,7 @@ public class WeaknessManager : MonoBehaviour
         //将临时储存同步到主内容去（其实是为了省内存，现在多干点活接下来占用小一点）
         Generators = generators.ToArray();
         Points = points.ToArray();
+        PointsAndGenerators = new Dictionary<string, ProblemGenerator[]>();
         foreach(var point_and_generator in pointsandgenerators){
             PointsAndGenerators.Add(point_and_generator.Key,point_and_generator.Value.ToArray());
         }
@@ -158,11 +181,11 @@ public class WeaknessManager : MonoBehaviour
     /// 从磁盘中读出数据
     /// </summary>
     protected void ReadData(){
-        //如果数据文件不存在（或者损坏？）就设成null然后不管
-        if( !(File.Exists(PointDataPath)
-        && File.Exists(EnablePointsDataPath) )){
-            PointsFinishMessage = null;
-            EnablePoints = null;
+        //如果数据文件不存在（或者损坏？）就设成空集合，并建立该目录
+        if(!Directory.Exists(WeaknessDirectory)){
+            PointsFinishMessage = new Dictionary<string, PointFinishMessage>();
+            EnablePoints = new List<string>();
+            Directory.CreateDirectory(WeaknessDirectory);
             return;
         }
         //先读出PointData
@@ -209,7 +232,7 @@ public class WeaknessManager : MonoBehaviour
     public Problem GenerateProblem(){
         var generator = ChooseProblemGenerator();
         var problem = generator.GenerateProblem();
-        BeginAnswering(problem);
+        problem.ProblemFinishListener += EndAnswering;
         return problem;
     }
     /// <summary>
@@ -221,7 +244,7 @@ public class WeaknessManager : MonoBehaviour
         var generators = PointsAndGenerators[point];
         return generators[UnityEngine.Random.Range(0,generators.Length)];
     }
-    /// <summary>
+    /// <summary>`
     /// 选择要生成的题目所属的知识点
     /// </summary>
     /// <returns></returns>
@@ -235,12 +258,6 @@ public class WeaknessManager : MonoBehaviour
             }
         }
         throw new Exception("随机数落到范围区间外去了");
-    }
-    /// <summary>
-    /// 开始答题
-    /// </summary>
-    protected virtual void BeginAnswering(Problem p){
-        p.ProblemFinishListener += EndAnswering;
     }
     /// <summary>
     /// 停止答题（题目完成回调）
