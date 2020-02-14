@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Unity.Collections;
+using System.Diagnostics;
 
 /// <summary>
 /// 题目生成器的基类
@@ -26,17 +28,22 @@ public abstract class ProblemGenerator
     /// 生成题目
     /// </summary>
     /// <returns>题目</returns>
-    public abstract Problem GenerateProblem();
+    public Problem GenerateProblem(){
+        var result = GenerateProblemInternal();
+        result.Generator = this;
+        return result;
+    }
+    protected abstract Problem GenerateProblemInternal();
 }
 /// <summary>
 /// 题目的基类
 /// </summary>
 public abstract class Problem : CurrentTask
 {
+    public ProblemGenerator Generator;
     /// <summary>
     /// 题目的描述
     /// </summary>
-    /// <value></value>
     public abstract string ProblemDescription { get;}
     /// <summary>
     /// 检测答案是否正确
@@ -48,6 +55,11 @@ public abstract class Problem : CurrentTask
     /// 题目的答案
     /// </summary>
     public abstract string[] Answers { get; }
+    
+    /// <summary>
+    /// 题目的完成回调
+    /// </summary>
+    public Action<Problem,bool> ProblemFinishListener;
     /// <summary>
     /// 输入答案
     /// </summary>
@@ -64,7 +76,8 @@ public abstract class Problem : CurrentTask
     /// Problem调用Task里Finish的参数转换接口
     /// </summary>
     public void ProblemFinish(bool IsRight){
-        base.Finish(IsRight);
+        base.Finish();
+        ProblemFinishListener(this, IsRight);
     }
 }
 
@@ -73,7 +86,7 @@ public abstract class Problem : CurrentTask
 
 
 /// <summary>
-/// 知识点的扩展类
+/// 知识点类型名称统一列表
 /// </summary>
 public class PointType{
     public static readonly string Arithmetic = "四则运算";
