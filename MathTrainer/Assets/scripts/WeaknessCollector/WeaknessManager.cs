@@ -242,7 +242,8 @@ public class WeaknessManager : MonoBehaviour
     protected ProblemGenerator ChooseProblemGenerator(){
         string point = ChoosePoint();
         var generators = PointsAndGenerators[point];
-        return generators[UnityEngine.Random.Range(0,generators.Length)];
+        int random = UnityEngine.Random.Range(0,generators.Length);
+        return generators[random];
     }
     /// <summary>`
     /// 选择要生成的题目所属的知识点
