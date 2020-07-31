@@ -86,7 +86,8 @@ public class WeaknessManager : MonoBehaviour
         if(main == null){
             main = this;
         }else{
-            Debug.LogError("不能同时存在两个Manager！");
+            Destroy(this.gameObject);
+            Debug.LogWarning("不能同时存在两个Manager！");
         }
         //获得所有的ProblemGenerator
         GetGenerators();
