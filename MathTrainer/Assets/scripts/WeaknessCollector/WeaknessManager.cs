@@ -296,6 +296,7 @@ public class WeaknessManager : MonoBehaviour
         EnablePoints.Add(pointType);
         AddPointRandomPercentage(pointType);
         SaveData();
+        Debug.Log($"添加了{pointType}的生成");
     }
     /// <summary>
     /// 将一个知识点移出生成范围
@@ -304,5 +305,12 @@ public class WeaknessManager : MonoBehaviour
         EnablePoints.Remove(pointType);
         RemovePointRandomPercentage(pointType);
         SaveData();
+        Debug.Log("取消了" + pointType + "的生成");
+    }
+    /// <summary>
+    /// 检测一个知识点是否在生成范围
+    /// </summary>
+    public virtual bool IsEnabled(string pointType){
+        return EnablePoints.Contains(pointType);
     }
 }
