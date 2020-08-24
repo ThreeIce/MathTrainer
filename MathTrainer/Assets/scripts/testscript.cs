@@ -9,11 +9,6 @@ public class testscript : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        //先将要测试的知识点纳入生成范围
-        WeaknessManager wm = WeaknessManager.main;
-        if(!wm.EnablePoints.Contains(PointType.Arithmetic)){
-            wm.EnablePoint(PointType.Arithmetic);
-        }
         //题目获取
         Manager manager = Manager.main;
         Problem p = manager.GenerateProblem();

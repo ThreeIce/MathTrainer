@@ -37,10 +37,4 @@ public class PointManager : MonoBehaviour
             controller.Init(points[i],wmanager.IsEnabled(points[i]));
         }
     }
-    /// <summary>
-    /// 回到主页面
-    /// </summary>
-    public void BackToMainPage(){
-        Manager.main.OpenMainPage();
-    }
 }

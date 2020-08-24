@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 //ThreeIce：UI那边获取题目后与输入交互，通过IsCorrect检测是否正确，如果正确直接调用Finish即可，不需要回来调用别的函数，一切功能由钩子处理
 public class Manager : MonoBehaviour
 {
@@ -68,30 +67,6 @@ public class Manager : MonoBehaviour
             throw new CurrentTaskException("当前进行中任务与当前任务完成回调对应的任务不同！（可能是当前任务为null）");
         }
         CurrentTask = null;
-    }
-    /// <summary>
-    /// 加载回答问题页面
-    /// </summary>
-    public void OpenProblemPage(){
-        SceneManager.LoadScene("ProblemScene");
-    }
-    /// <summary>
-    /// 加载主页面
-    /// </summary>
-    public void OpenMainPage(){
-        SceneManager.LoadScene("MainScene");
-    }
-    /// <summary>
-    /// 加载知识点选择页面
-    /// </summary>
-    public void OpenPointPage(){
-        SceneManager.LoadScene("PointChoose");
-    }
-    /// <summary>
-    /// 加载薄弱知识点显示页面
-    /// </summary>
-    public void OpenWeaknessView(){
-        SceneManager.LoadScene("WeaknessView");
     }
 }
 public class CurrentTaskException : Exception
