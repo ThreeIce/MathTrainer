@@ -25,7 +25,7 @@ public class WeaknessManager : MonoBehaviour
     /// </summary>
     public static string EnablePointsDataPath;
     /// <summary>
-    /// 初始化数据路径（unity不让在载入程序时初始化，只能放Awake
+    /// 初始化数据路径（unity不让在载入程序时初始化，只能放Awake）
     /// </summary>
     public static void InitDataPath(){
         WeaknessDirectory = Application.persistentDataPath + "/WeaknessData";
