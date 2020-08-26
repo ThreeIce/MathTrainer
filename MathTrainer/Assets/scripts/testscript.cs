@@ -12,11 +12,6 @@ public class testscript : MonoBehaviour
         //题目获取
         Manager manager = Manager.main;
         Problem p = manager.GenerateProblem();
-        //加个完成回调
-        p.ProblemFinishListener += (sender,IsRight) =>{
-            Debug.Log("答案"+IsRight);
-            Debug.Log("完成时间"+ sender.FinishTime);
-        };
         //开始答题
         p.Start();
         Debug.Log("题目为" + p.ProblemDescription); 
@@ -24,7 +19,11 @@ public class testscript : MonoBehaviour
         //等待两秒
         yield return new WaitForSeconds(2);
         //输入结果
-        p.InputAnswer(p.Answers);
+        if(p.InputAnswer()){
+            //正确
+        }else{
+            //错误
+        }
         
     }
     // Update is called once per frame
