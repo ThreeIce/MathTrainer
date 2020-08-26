@@ -41,7 +41,14 @@ public class PointController : MonoBehaviour
         if(value){
             wmanager.EnablePoint(PointType);
         }else{
-            wmanager.DisablePoint(PointType);
+            try{
+                wmanager.DisablePoint(PointType);
+            }
+            catch(System.Exception e){
+                //TODO:时间有限，做个简单的禁止去勾处理
+                Debug.Log(e);
+                toggle.SetIsOnWithoutNotify(true);
+            }
         }
     }
 }

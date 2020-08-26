@@ -265,6 +265,7 @@ public class WeaknessManager : MonoBehaviour
     /// 停止答题（题目完成回调）
     /// </summary>
     protected virtual void EndAnswering(Problem p,bool IsCorrect){
+        Debug.Log("停止答题");
         var problemGenerator = p.Generator;
         var pointType = problemGenerator.pointType;
         //保存题目完成记录
@@ -302,6 +303,9 @@ public class WeaknessManager : MonoBehaviour
     /// 将一个知识点移出生成范围
     /// </summary>
     public virtual void DisablePoint(string pointType){
+        if(EnablePoints.Count <= 1){
+            throw new Exception("至少要启用一种题目的生成！");
+        }
         EnablePoints.Remove(pointType);
         RemovePointRandomPercentage(pointType);
         SaveData();

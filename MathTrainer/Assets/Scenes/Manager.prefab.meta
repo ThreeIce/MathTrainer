@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:MathTrainer/Assets/Prefab.meta
-guid: d594bfee934a51a46bcb7a7f6a366ccc
-folderAsset: yes
-DefaultImporter:
-=======
-guid: 31d820bb887151d45ab425929aca01c4
+guid: 7abb78379d8b29348b75a6f47edd3226
 PrefabImporter:
->>>>>>> origin/problemUI:MathTrainer/Assets/Scenes/Manager.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

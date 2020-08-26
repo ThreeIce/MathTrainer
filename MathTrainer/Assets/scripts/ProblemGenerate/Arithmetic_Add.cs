@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arithmetic_AddGenrator : ProblemGenerator{
+public class Arithmetic_AddGenerator : ProblemGenerator{
     /// <summary>
     /// 题目类型名
     /// </summary>
@@ -16,7 +16,7 @@ public class Arithmetic_AddGenrator : ProblemGenerator{
     /// 最佳完成题目的时间
     /// </summary>
     /// <value></value>
-    public override float BestFinishTime{get{return 10;}}
+    public override float BestFinishTime{get{return 10f;}}
     /// <summary>
     /// 生成题目
     /// </summary>

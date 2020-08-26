@@ -61,6 +61,10 @@ public abstract class Problem : CurrentTask
     /// </summary>
     public Action<Problem,bool> ProblemFinishListener;
     /// <summary>
+    /// 当题目放弃时调用
+    /// </summary>
+    public Action<Problem> OnGiveUp;
+    /// <summary>
     /// 输入答案
     /// </summary>
     public virtual bool InputAnswer(params string[] Answers){
@@ -78,6 +82,17 @@ public abstract class Problem : CurrentTask
     public void ProblemFinish(bool IsRight){
         base.Finish();
         ProblemFinishListener(this, IsRight);
+        ProblemFinishListener = null;
+        OnGiveUp = null;
+    }
+    /// <summary>
+    /// 放弃完成该题目
+    /// </summary>
+    public void GiveUp(){
+        OnGiveUp?.Invoke(this);
+        base.Finish();
+        ProblemFinishListener = null;
+        OnGiveUp = null;
     }
 }
 

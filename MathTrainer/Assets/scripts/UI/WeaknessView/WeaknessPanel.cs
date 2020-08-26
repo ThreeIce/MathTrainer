@@ -33,9 +33,9 @@ public class WeaknessPanel : MonoBehaviour
         Good = GameObject.Find("Good");
         Bad = GameObject.Find("Bad");
 
-        VeryGoodContent = GetComponentInChildren<GridLayoutGroup>().transform;
-        GoodContent = GetComponentInChildren<GridLayoutGroup>().transform;
-        BadContent = GetComponentInChildren<GridLayoutGroup>().transform;
+        VeryGoodContent = VeryGood.GetComponentInChildren<GridLayoutGroup>().transform;
+        GoodContent = Good.GetComponentInChildren<GridLayoutGroup>().transform;
+        BadContent = Bad.GetComponentInChildren<GridLayoutGroup>().transform;
 
         wmanager = WeaknessManager.main;
         Init();

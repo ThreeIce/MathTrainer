@@ -8,7 +8,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneJump : MonoBehaviour
 {
-    
+    //自动跳转顺便在这写了
+    void Start(){
+        if(WeaknessManager.main.IsFirstTime){
+            WeaknessManager.main.EnablePoint(PointType.Arithmetic);
+            OpenPointPage();
+        }
+    }
     /// <summary>
     /// 加载回答问题页面
     /// </summary>
