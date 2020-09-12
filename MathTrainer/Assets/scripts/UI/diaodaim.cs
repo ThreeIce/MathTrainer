@@ -30,7 +30,7 @@ public class diaodaim : MonoBehaviour
 
     }
     public void Answer(){
-        if(problem.InputAnswer(AnswerText.text)){
+        if(problem.InputAnswer(AnswerText.text.Split('|'))){
             WhenCorrect();
         }else{
             WhenWrong();

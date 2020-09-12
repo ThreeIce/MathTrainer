@@ -284,6 +284,7 @@ public class WeaknessManager : MonoBehaviour
             FinishTime = IsCorrect ? p.FinishTime : 0f
         };
         pointFinishMessage.Records.Add(problemFinishMessage);
+        Debug.Log($"{pointType}的掌握程度为{pointFinishMessage.LearnLevel}");
         SaveData();
     }
     /// <summary>
