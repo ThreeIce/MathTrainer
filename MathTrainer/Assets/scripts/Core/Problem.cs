@@ -105,4 +105,8 @@ public abstract class Problem : CurrentTask
 /// </summary>
 public class PointType{
     public static readonly string Arithmetic = "四则运算";
+    public static readonly string YiYuanYiCi = "一元一次方程";
+    public static readonly string ErYuanYiCi = "二元一次方程";
+    public static readonly string YiYuanErCi = "一元二次方程";
+    public static readonly string YinShiFenJie = "因式分解";
 }
