@@ -4,9 +4,13 @@ using System.Text;
 
 namespace calculate
 {
+    
     public class CreateProblem7
     {
-         
+         public static Random r;
+         static CreateProblem7(){
+             r = new Random();
+         }
 
         //产生一元二次方程
         public string[] GetEquation(int flag)
@@ -22,12 +26,12 @@ namespace calculate
             if (flag==1)
             {
                 //生成随机数[0,9]
-                Random rd = new Random();
+                Random rd = r;
                 rand = rd.Next(0, 9);
             }
             else
             {
-                rand = new Random().Next(0,5);
+                rand = r.Next(0,5);
             }
             
 
@@ -55,47 +59,56 @@ namespace calculate
         //创建两个有理数解类型
         private string[] Type3()
         {
-            int x1 = new Random().Next(-10,10);
-            int x2 = new Random().Next(-10,10);
-            int a  = new Random().Next(-10,10);
+            X:
+            int x1 = r.Next(-10,10);
+            int x2 = r.Next(-10,10);
+            if(x1==x2) goto X;
+            A:
+            int a = r.Next(-10,10);
+            if(a == 0) goto A;
             int c = a * x1 * x2;
             int b = -a * (x1 + x2);
             string[] question=new string[3];
-            question[0] = a + "x^2+" + b + "x+" + c + "=0";
-            question[1] = x1+"";
-            question[2] = x2+"";
+            question[0] = "求" + a + "x^2" + 
+                (b >= 0 ? "+" + b + "x" : b + "x")+
+                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
+            question[1] = x1.ToString();
+            question[2] = x2.ToString();
             return question;
         }
         //创建两个相同解类型
         private string[] Type2()
         {
-            int x1 = new Random().Next(-10, 10);
+            int x1 = r.Next(-10, 10);
             int x2 = x1;
-            int a = new Random().Next(-10, 10);
+            A:
+            int a = r.Next(-10, 10);
+            if(a == 0)  goto A;
             int c = a * x1 * x2;
             int b = -a * (x1 + x2);
-            string[] question = new string[3];
-            question[0] = a + "x^2+" + b + "x+" + c+"=0";
-            question[1] = x1 + "";
-            question[2] = x2 + "";
+            string[] question = new string[2];
+            question[0] = "求" + a + "x^2" + 
+                (b >= 0 ? "+" + b + "x" : b + "x")+
+                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
+            question[1] = x1.ToString();
             return question;
         }
         //创建无解类型
         private string[] Type1()
         {
-            string[] question = new string[3];
+            string[] question = new string[1];
             int a, b, c;
             
             do{
-                a = new Random().Next(-10, 10);
-                b = new Random().Next(-10, 10);
-                c = new Random().Next(-10, 10); 
+                a = r.Next(-10, 10);
+                b = r.Next(-10, 10);
+                c = r.Next(-10, 10); 
 
             }while (4 * a * c < b * b) ;
 
-            question[0] = a + "x^2+" + b + "x+" + c + "=0";
-            question[1] = "No";
-            question[2] = "";
+            question[0] = "求" + a + "x^2" + 
+                (b >= 0 ? "+" + b + "x" : b + "x")+
+                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
 
             return question;
         }
@@ -107,9 +120,9 @@ namespace calculate
 
             do
             {
-                a = new Random().Next(-10, 10);
-                b = new Random().Next(-10, 10);
-                c = new Random().Next(-10, 10);
+                a = r.Next(-10, 10);
+                b = r.Next(-10, 10);
+                c = r.Next(-10, 10);
 
                 temp1 = (int)Math.Sqrt(b * b - 4 * a * c);
                 temp2= Math.Sqrt(b * b - 4 * a * c);

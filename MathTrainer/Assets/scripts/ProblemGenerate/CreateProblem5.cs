@@ -6,6 +6,10 @@ namespace calculate
 {
     class CreateProblem5
     {
+        static Random r;
+        static CreateProblem5(){
+            r = new Random();
+        }
         //返回题目与答案
         public string[] GetEquation()
         {
@@ -13,10 +17,10 @@ namespace calculate
             int a, b, c, d;
             do
             {
-                a = new Random().Next(-10, 10);
-                b = new Random().Next(-10, 15);
-                c = new Random().Next(-10, 10);
-                d = new Random().Next(-10, 15);
+                a = r.Next(0, 10);
+                b = r.Next(-10, 15);
+                c = r.Next(0, 10);
+                d = r.Next(-10, 15);
 
             } while (a==0||b==0||c==0||d==0);
 
@@ -38,7 +42,7 @@ namespace calculate
             else
                 bd=""+ (b * d);
 
-            string s1 = a * c + "x^2" +adbc+ "x" + bd;
+            string s1 = "请因式分解：" + a * c + "x^2" +adbc+ "x" + bd;
 
 
             string bs, ds;

@@ -6,6 +6,10 @@ namespace calculate
 {
     class CreateProblem3
     {
+        static Random r;
+        static CreateProblem3(){
+            r = new Random();
+        }
         //返回 两个题目，两个答案
         public string[] GetEquation1()
         {
@@ -13,8 +17,8 @@ namespace calculate
 
             
             double[] num= { 0.2, 0.4, 0.5, 0.6 ,0.5};
-            int x11 = new Random().Next(10, 99);
-            int selec= new Random().Next(0, 3);
+            int x11 = r.Next(10, 99);
+            int selec= r.Next(0, 3);
             double x1 = x11 + num[selec];
             int b1 = 0;
             switch (selec)
@@ -41,11 +45,11 @@ namespace calculate
         {
             string[] question = new string[4];
             double[] num = { 0.2, 0.4, 0.5, 0.6, 0.5 };
-             int selec = new Random().Next(0, 3);
+             int selec = r.Next(0, 3);
             
-            int x22 = new Random().Next(10, 99);
-            int b22 = new Random().Next(1, 9);
-            int selec2 = new Random().Next(0, 3);
+            int x22 = r.Next(10, 99);
+            int b22 = r.Next(1, 9);
+            int selec2 = r.Next(0, 3);
             double x2 = (double)(x22 + num[selec2]);
 
             int b2 = 0;

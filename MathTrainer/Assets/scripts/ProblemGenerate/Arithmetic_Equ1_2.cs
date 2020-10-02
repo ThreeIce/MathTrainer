@@ -34,10 +34,26 @@ public class Arithmetic_Equ1_2 : Problem
     string[] Q = new CreateProblem7().GetEquation(0);
     public override string ProblemDescription { get { return "请计算：" + Q[0]; } }
 
-    public override string[] Answers { get { return new string[] { Q[1], Q[2] }; } }
+    public override string[] Answers {
+         get { 
+            var result = new string[Q.Length-1];
+            for(int i = 0;i<result.Length;i++){
+                result[i] = Q[i+1];
+            }
+            return result;
+        }
+    }
 
     public override bool IsCorrect(params string[] Answers)
     {
-        return Answers.Length == 2 && Answers[0] == this.Answers[0] && Answers[1] == this.Answers[1];
+        if(Answers.Length == Answers.Length){
+            for(int i = 0; i < Answers.Length;i++){
+                if(this.Answers[i] != Answers[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

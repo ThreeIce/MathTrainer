@@ -6,18 +6,22 @@ namespace calculate
 {
     class CreateProblem6
     {
+        public static Random r;
+        static CreateProblem6(){
+            r = new Random();
+        }
         //返回题目，x，y 
         public string[] GetEquation()
         {
             string[] question = new string[3];
-            int x = new Random().Next(-10,10);
-            int y = new Random().Next(-10,10);
-            int a1= new Random().Next(-20,20);
-            int b1 = new Random().Next(-20, 20);
+            int x = r.Next(-10,10);
+            int y = r.Next(-10,10);
+            int a1= r.Next(-20,20);
+            int b1 = r.Next(-20, 20);
             int c1 = x * a1+b1*y;
 
-            int a2 = new Random().Next(-20, 20);
-            int b2 = new Random().Next(-20, 20);
+            int a2 = r.Next(-20, 20);
+            int b2 = r.Next(-20, 20);
             int c2 = x * a2 + b2 * y;
 
             string s1, s2;
