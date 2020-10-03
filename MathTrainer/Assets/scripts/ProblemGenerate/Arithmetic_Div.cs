@@ -31,11 +31,11 @@ public class Arithmetic_DivGenerator : ProblemGenerator
 }
 public class Arithmetic_Div : Problem
 {
-    CreateProblem3 c3 = new CreateProblem3();  //返回加法的题目与答案
+    string[] Q = new CreateProblem3().GetEquation1();  //返回加法的题目与答案
 
-    public override string ProblemDescription { get { return "请计算：" + c3.GetEquation1()[0]; } }
+    public override string ProblemDescription { get { return "请计算：" + Q[0]; } }
 
-    public override string[] Answers { get { return new string[] { c3.GetEquation1()[1] }; } }
+    public override string[] Answers { get { return new string[] { Q[1] }; } }
 
     public override bool IsCorrect(params string[] Answers)
     {
