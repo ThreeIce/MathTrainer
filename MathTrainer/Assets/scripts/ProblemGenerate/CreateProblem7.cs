@@ -71,7 +71,7 @@ namespace calculate
             string[] question=new string[3];
             question[0] = "求" + a + "x^2" + 
                 (b >= 0 ? "+" + b + "x" : b + "x")+
-                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
+                (c >= 0 ? "+" + c : c.ToString()) +"=0的根，如果无解无需输入直接提交";
             question[1] = x1.ToString();
             question[2] = x2.ToString();
             return question;
@@ -89,7 +89,7 @@ namespace calculate
             string[] question = new string[2];
             question[0] = "求" + a + "x^2" + 
                 (b >= 0 ? "+" + b + "x" : b + "x")+
-                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
+                (c >= 0 ? "+" + c : c.ToString()) +"=0的根，如果无解无需输入直接提交";
             question[1] = x1.ToString();
             return question;
         }
@@ -108,7 +108,7 @@ namespace calculate
 
             question[0] = "求" + a + "x^2" + 
                 (b >= 0 ? "+" + b + "x" : b + "x")+
-                (c >= 0 ? "+" + c + "x" : c.ToString()) +"=0的根，如果无解无需输入直接提交";
+                (c >= 0 ? "+" + c : c.ToString()) +"=0的根，如果无解无需输入直接提交";
 
             return question;
         }

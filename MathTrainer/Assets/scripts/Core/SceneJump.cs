@@ -39,4 +39,10 @@ public class SceneJump : MonoBehaviour
     public void OpenWeaknessView(){
         SceneManager.LoadScene("WeaknessView");
     }
+    /// <summary>
+    /// 关闭程序
+    /// </summary>
+    public void Exit(){
+        Application.Quit();
+    }
 }

@@ -46,7 +46,8 @@ public class Arithmetic_Equ1_2 : Problem
 
     public override bool IsCorrect(params string[] Answers)
     {
-        if(Answers.Length == Answers.Length){
+        Debug.Log(Answers.Length);
+        if(this.Answers.Length == Answers.Length){
             for(int i = 0; i < Answers.Length;i++){
                 if(this.Answers[i] != Answers[i]){
                     return false;
